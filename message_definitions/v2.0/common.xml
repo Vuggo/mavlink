@@ -3522,7 +3522,39 @@
         <description>Winch clutch is engaged allowing motor to move freely</description>
       </entry>
     </enum>
-   
+   <enum name="MAVSH_STATUS">
+      <description>Status flag for mavsh session</description>
+      <entry value="0" name="MAVSH_INACTIVE">
+        <description>No active MAVSH session exists</description>
+      </entry>      
+      <entry value="1" name="MAVSH_ACTIVE">
+        <description>An active MAVSH session exists</description>
+      </entry>
+    </enum>
+    <enum name="MAVSH_SETUP">
+      <description>Flags defining whether the MAVSH session was setup or not</description>
+      <entry value="0" name="MAVSH_SESSION_INIT">
+        <description>Attempting to init MAVSH</description>
+      </entry>
+      <entry value="1" name="MAVSH_SESSION_ACCEPTED">
+        <description>MAVSH session accepted</description>
+      </entry>
+      <entry value="2" name="MAVSH_SESSION_REJECTED">
+        <description>MAVSH session rejected</description>
+      </entry>
+      <entry value="3" name="MAVSH_SESSION_EXIT">
+        <description>Attempting to exit MAVSH session</description>
+      </entry>
+    </enum>
+    <enum name="MAVSH_COMMAND_STATUS">
+      <description>Flag for progress of current command</description>
+      <entry value="0" name="MAVSH_IDLE">
+        <description>No command currently executing</description>
+      </entry>
+      <entry value="1" name="MAVSH_EXECUTING">
+        <description>Command currently executing</description>
+      </entry>
+    </enum>
   </enums>
   <messages>
     <message id="0" name="HEARTBEAT">
@@ -5320,6 +5352,68 @@
       <field type="uint32_t" name="active" display="bitmask">Active outputs</field>
       <field type="float[32]" name="actuator">Servo / motor output array values. Zero values indicate unused channels.</field>
     </message>
+    <!-- 420 to x for MAVSH control-->
+
+      <!-- MAVSH_SESSION_INIT 
+        <description>Initialize connection with companion computer's interactive MAVSH</description>
+
+        These uart settings should should be handled as params on the fc 
+          - uart number
+          - baud rate
+
+      session_status: MAVSH_SESSION_STATUS
+        - If no MAVSH_session_ack transmitted from the rpi then retransmit after 5 seconds until its accepted
+
+      outfile: String/Char[] to log command output on the remote computer
+    -->    
+    <message id="420" name="MAVSH_INIT">
+      <description>Initialize MAVSH command mode</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
+    </message>
+    
+    <!--      
+      MAVSH_ACK
+      - Simple ACK to confirm reception of MAVSH command      
+    -->
+    <message id="421" name="MAVSH_ACK">
+      <description>ACK initialization of MAVSH command mode</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
+    </message>
+     
+    <!-- 
+      MAVSH_EXEC
+      command: Strings/Char[] to be executed to the companion computer
+      checksum/crc?
+    -->
+    
+    <message id="422" name="MAVSH_EXEC">
+      <description>Execute a command on companion computer</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
+    </message>
+
+    <!--
+
+      MAVSH_RESPONSE
+      command: String/Char[] with the output of the MAVSH command
+        - this is trickier to send as some commands may take a long time to execute 
+
+      companion computer should send a response packet any time a buffer is flushed and transmitted with IN PROGRESS until command is completed
+
+      TODO EVENTUALLY:
+      - encrypt these messages  
+
+    -->    
+    <message id="423" name="MAVSH_RESPONSE">
+      <description>Execute a command on companion computer</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="response">Output of command.</field>
+    </message>
+    
     
     <!-- Rover specific messages -->
     <message id="9000" name="WHEEL_DISTANCE">

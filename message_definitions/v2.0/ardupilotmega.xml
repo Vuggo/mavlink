@@ -1106,7 +1106,15 @@
       <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
-    
+    <enum name="MAVSH_STATUS">
+      <description>Status flag for mavsh session</description>
+      <entry value="0" name="MAVSH_INACTIVE">
+        <description>No active MAVSH session exists</description>
+      </entry>      
+      <entry value="1" name="MAVSH_ACTIVE">
+        <description>An active MAVSH session exists</description>
+      </entry>
+    </enum>
     <enum name="MAVSH_SETUP">
       <description>Flags defining whether the MAVSH session was setup or not</description>
       <entry value="0" name="MAVSH_SESSION_INIT">
