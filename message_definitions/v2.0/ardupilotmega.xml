@@ -1625,7 +1625,10 @@
     -->    
     <message id="420" name="MAVSH_INIT">
       <description>Initialize MAVSH command mode</description>
-      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="system_id">Origin system id</field>
+      <field type="uint8_t" name="component_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
       <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
     </message>
     
@@ -1634,8 +1637,11 @@
       - Simple ACK to confirm reception of MAVSH command      
     -->
     <message id="421" name="MAVSH_ACK">
-      <description>ACK initialization of MAVSH command mode</description>
-      <field type="uint8_t" name="target_system">System ID</field>
+      <description>ACK initialization of MAVSH command mode</description>      
+      <field type="uint8_t" name="system_id">Origin system id</field>
+      <field type="uint8_t" name="component_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
       <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
     </message>
      
@@ -1647,7 +1653,10 @@
     
     <message id="422" name="MAVSH_EXEC">
       <description>Execute a command on companion computer</description>
-      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="system_id">Origin system id</field>
+      <field type="uint8_t" name="component_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                        
       <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
       <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
     </message>
@@ -1665,12 +1674,14 @@
 
     -->    
     <message id="423" name="MAVSH_RESPONSE">
-      <description>Execute a command on companion computer</description>
-      <field type="uint8_t" name="target_system">System ID</field>
+      <description>Execute a command on companion computer</description>      
+      <field type="uint8_t" name="system_id">Origin system id</field>
+      <field type="uint8_t" name="component_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                  
       <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
       <field type="char[70]" name="response">Output of command.</field>
     </message>
-
 
     <!-- ardupilot specific mavlink2 messages starting at 11000-->
     <message id="11000" name="DEVICE_OP_READ">
