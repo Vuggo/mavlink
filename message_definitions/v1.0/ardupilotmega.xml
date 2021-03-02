@@ -1056,6 +1056,39 @@
       <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
+    <enum name="MAVSH_STATUS">
+      <description>Status flag for mavsh session</description>
+      <entry value="0" name="MAVSH_INACTIVE">
+        <description>No active MAVSH session exists</description>
+      </entry>              
+      <entry value="1" name="MAVSH_ACTIVE">
+        <description>An active MAVSH session exists</description>
+      </entry>
+    </enum>
+    <enum name="MAVSH_SETUP">
+      <description>Flags defining whether the MAVSH session was setup or not</description>
+      <entry value="0" name="MAVSH_SESSION_INIT">
+        <description>Attempting to init MAVSH</description>
+      </entry>
+      <entry value="1" name="MAVSH_SESSION_ACCEPTED">
+        <description>MAVSH session accepted</description>
+      </entry>
+      <entry value="2" name="MAVSH_SESSION_REJECTED">
+        <description>MAVSH session rejected</description>
+      </entry>
+      <entry value="3" name="MAVSH_SESSION_EXIT">
+        <description>Attempting to exit MAVSH session</description>
+      </entry>
+    </enum>
+    <enum name="MAVSH_COMMAND_STATUS">
+      <description>Flag for progress of current command</description>
+      <entry value="0" name="MAVSH_IDLE">
+        <description>No command currently executing</description>
+      </entry>
+      <entry value="1" name="MAVSH_EXECUTING">
+        <description>Command currently executing</description>
+      </entry>
+    </enum>
   </enums>
   <messages>
     <message id="150" name="SENSOR_OFFSETS">
@@ -1676,6 +1709,44 @@
       <field type="float" name="z" units="m"> Z position of the obstacle.</field>
       <field type="float" name="min_distance" units="m">Minimum distance the sensor can measure.</field>
       <field type="float" name="max_distance" units="m">Maximum distance the sensor can measure.</field>
+    </message>
+
+    <message id="11420" name="MAVSH_INIT">
+      <description>Initialize MAVSH command mode</description>
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
+    </message>
+    
+    <message id="11421" name="MAVSH_ACK">
+      <description>ACK initialization of MAVSH command mode</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
+    </message>
+    
+    <message id="11422" name="MAVSH_EXEC">
+      <description>Execute a command on companion computer</description>
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                        
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
+    </message>
+        
+    <message id="11423" name="MAVSH_RESPONSE">
+      <description>Execute a command on companion computer</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                  
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="response">Output of command.</field>
     </message>
   </messages>
 </mavlink>
