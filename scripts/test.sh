@@ -7,6 +7,7 @@ SRC_DIR=$(pwd)
 # on the build tree. Otherwise the testing is invalid and may not
 # indicate the code actually works
 
+<<<<<<< HEAD
 test_format() {
     # check format
     sep="##############################################"
@@ -17,6 +18,16 @@ test_format() {
     ./scripts/format_xml.sh -c
     echo PASS
 }
+=======
+# check format
+sep="##############################################"
+echo $sep
+echo "FORMAT TEST"
+echo $sep
+cd "$SRC_DIR"
+ ./scripts/format_xml.sh -c
+echo PASS
+>>>>>>> 0c30c319cc6138731d7be6b26e2622ae25e5cff3
 
 generate_mavlink() {
     echo $sep
