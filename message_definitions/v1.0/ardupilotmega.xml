@@ -1607,77 +1607,7 @@
       <field type="float" name="rpm2">RPM Sensor2.</field>
     </message>
 
-    <!-- 420 to x for MAVSH control-->
-
-      <!-- MAVSH_SESSION_INIT 
-        <description>Initialize connection with companion computer's interactive MAVSH</description>
-
-        These uart settings should should be handled as params on the fc 
-            - uart number
-            - baud rate
-
-        session_status: MAVSH_SESSION_STATUS
-            - If no MAVSH_session_ack transmitted from the rpi then retransmit after 5 seconds until its accepted
-
-        outfile: String/Char[] to log command output on the remote computer
-      -->    
-    <message id="420" name="MAVSH_INIT">
-      <description>Initialize MAVSH command mode</description>
-      <field type="uint8_t" name="sys_id">Origin system id</field>
-      <field type="uint8_t" name="comp_id">Origin component id</field>      
-      <field type="uint8_t" name="target_system">Target system id</field>
-      <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
-    </message>
-
-    <!--      
-      MAVSH_ACK
-        - Simple ACK to confirm reception of MAVSH command      
-    -->
-    <message id="421" name="MAVSH_ACK">
-      <description>ACK initialization of MAVSH command mode</description>      
-      <field type="uint8_t" name="sys_id">Origin system id</field>
-      <field type="uint8_t" name="comp_id">Origin component id</field>      
-      <field type="uint8_t" name="target_system">Target system id</field>
-      <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
-    </message>
-     
-     <!-- 
-      MAVSH_EXEC
-        command: Strings/Char[] to be executed to the companion computer
-        checksum/crc?
-    -->
-    <message id="422" name="MAVSH_EXEC">
-      <description>Execute a command on companion computer</description>
-      <field type="uint8_t" name="sys_id">Origin system id</field>
-      <field type="uint8_t" name="comp_id">Origin component id</field>      
-      <field type="uint8_t" name="target_system">Target system id</field>
-      <field type="uint8_t" name="target_component">Target component id</field>                        
-      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
-      <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
-    </message>
-    <!--
-    MAVSH_RESPONSE
-    command: String/Char[] with the output of the MAVSH command
-        - this is trickier to send as some commands may take a long time to execute 
-
-    companion computer should send a response packet any time a buffer is flushed and transmitted with IN PROGRESS until command is completed
-
-    TODO EVENTUALLY:
-      - encrypt these messages  
-
-    -->    
-
-    <message id="423" name="MAVSH_RESPONSE">
-      <description>Execute a command on companion computer</description>      
-      <field type="uint8_t" name="sys_id">Origin system id</field>
-      <field type="uint8_t" name="comp_id">Origin component id</field>      
-      <field type="uint8_t" name="target_system">Target system id</field>
-      <field type="uint8_t" name="target_component">Target component id</field>                  
-      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
-      <field type="char[70]" name="response">Output of command.</field>
-    </message>
+    
     <!-- ardupilot specific mavlink2 messages starting at 11000-->
     <message id="11000" name="DEVICE_OP_READ">
       <description>Read registers for a device.</description>
@@ -1832,6 +1762,77 @@
       <field type="float" name="z" units="m"> Z position of the obstacle.</field>
       <field type="float" name="min_distance" units="m">Minimum distance the sensor can measure.</field>
       <field type="float" name="max_distance" units="m">Maximum distance the sensor can measure.</field>
+    </message>
+    <!-- 420 to x for MAVSH control-->
+
+      <!-- MAVSH_SESSION_INIT 
+        <description>Initialize connection with companion computer's interactive MAVSH</description>
+
+        These uart settings should should be handled as params on the fc 
+            - uart number
+            - baud rate
+
+        session_status: MAVSH_SESSION_STATUS
+            - If no MAVSH_session_ack transmitted from the rpi then retransmit after 5 seconds until its accepted
+
+        outfile: String/Char[] to log command output on the remote computer
+      -->    
+    <message id="11420" name="MAVSH_INIT">
+      <description>Initialize MAVSH command mode</description>
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
+    </message>
+
+    <!--      
+      MAVSH_ACK
+        - Simple ACK to confirm reception of MAVSH command      
+    -->
+    <message id="11421" name="MAVSH_ACK">
+      <description>ACK initialization of MAVSH command mode</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>            
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
+    </message>
+     
+     <!-- 
+      MAVSH_EXEC
+        command: Strings/Char[] to be executed to the companion computer
+        checksum/crc?
+    -->
+    <message id="11422" name="MAVSH_EXEC">
+      <description>Execute a command on companion computer</description>
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                        
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
+    </message>
+    <!--
+    MAVSH_RESPONSE
+    command: String/Char[] with the output of the MAVSH command
+        - this is trickier to send as some commands may take a long time to execute 
+
+    companion computer should send a response packet any time a buffer is flushed and transmitted with IN PROGRESS until command is completed
+
+    TODO EVENTUALLY:
+      - encrypt these messages  
+
+    -->    
+
+    <message id="11423" name="MAVSH_RESPONSE">
+      <description>Execute a command on companion computer</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                  
+      <field type="uint8_t" name="status" enum="MAVSH_STATUS">Command status</field>
+      <field type="char[70]" name="response">Output of command.</field>
     </message>
   </messages>
 </mavlink>
