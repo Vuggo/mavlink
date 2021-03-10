@@ -57,6 +57,16 @@
         <param index="6">Empty.</param>
         <param index="7">Empty.</param>
       </entry>
+      <entry value="216" name="MAV_CMD_DO_SPRAYER" hasLocation="false" isDestination="false">
+        <description>Control attached liquid sprayer</description>
+        <param index="1" label="Sprayer Enable" minValue="0" maxValue="1" increment="1">0: disable sprayer. 1: enable sprayer.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
       <entry value="83" name="MAV_CMD_NAV_ALTITUDE_WAIT" hasLocation="false" isDestination="false">
         <description>Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up.</description>
         <param index="1" label="Altitude" units="m">Altitude.</param>
@@ -1791,6 +1801,7 @@
       MAVSH_ACK
         - Simple ACK to confirm reception of MAVSH command      
     -->
+
     <message id="11421" name="MAVSH_ACK">
       <description>ACK initialization of MAVSH command mode</description>      
       <field type="uint8_t" name="sys_id">Origin system id</field>
@@ -1812,7 +1823,7 @@
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                        
       <field type="uint8_t" name="status" enum="MAVSH_STATUS">MAVSH status</field>
-      <field type="char[70]" name="payload">Command to execute on remote MAVSH.</field>
+      <field type="char[154]" name="payload">Command to execute on remote MAVSH.</field>
     </message>
     <!--
     MAVSH_RESPONSE
@@ -1833,7 +1844,7 @@
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                  
       <field type="uint8_t" name="cmd_status" enum="MAVSH_CMD_STATUS">Command status</field>
-      <field type="char[70]" name="response">Output of command.</field>
+      <field type="char[154]" name="response">Output of command.</field>
     </message>
   </messages>
 </mavlink>
