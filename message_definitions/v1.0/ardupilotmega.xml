@@ -1117,7 +1117,7 @@
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
     <enum name="MAVSH_STATUS">
-      <description>Status flag for mavsh session</description>
+      <description>MAVSH session status flags</description>
       <entry value="0" name="MAVSH_INACTIVE">
         <description>No active MAVSH session exists</description>
       </entry>              
@@ -1135,13 +1135,16 @@
       </entry>
       <entry value="2" name="MAVSH_SESSION_REJECTED">
         <description>MAVSH session rejected</description>
+      </entry>      
+       <entry value="3" name="MAVSH_SESSION_EXISTS">
+        <description>MAVSH session rejected because session already exists</description>
       </entry>
-      <entry value="3" name="MAVSH_SESSION_EXIT">
+      <entry value="4" name="MAVSH_SESSION_EXIT">
         <description>Attempting to exit MAVSH session</description>
       </entry>
     </enum>
     <enum name="MAVSH_COMMAND_STATUS">
-      <description>Flag for progress of current command</description>
+      <description>MAVSH command status flages</description>
       <entry value="0" name="MAVSH_IDLE">
         <description>No command currently executing</description>
       </entry>
