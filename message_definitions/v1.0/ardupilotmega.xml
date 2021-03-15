@@ -1124,6 +1124,12 @@
       <entry value="1" name="MAVSH_ACTIVE">
         <description>An active MAVSH session exists</description>
       </entry>
+      <entry value="3" name="MAVSH_EXIT">
+        <description>Attempting to teardown MAVSH session</description>
+      </entry>
+      <entry value="4" name="MAVSH_EXITING">
+        <description>MAVSH session teardown accepted</description>
+      </entry>
     </enum>
     <enum name="MAVSH_SETUP">
       <description>Flags defining whether the MAVSH session was setup or not</description>
@@ -1796,7 +1802,7 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>">Init status flag</field>      
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>"></field>      
     </message>
 
 
@@ -1811,22 +1817,29 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP">MAVSH init status flag</field>      
+      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP"></field>      
     </message>
-    
+
+    <message id="11422" name="MAVSH_SYNACK">
+      <description>ACK initialization of MAVSH command mode</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>      
+    </message>
      <!-- 
       MAVSH_EXEC
         command: Strings/Char[] to be executed to the companion computer
         checksum/crc?
     -->
-    <message id="11422" name="MAVSH_EXEC">
+    <message id="11423" name="MAVSH_EXEC">
       <description>Execute a command on companion computer</description>
       <field type="uint8_t" name="sys_id">Origin system id</field>
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                        
       <field type="uint8_t" name="status" enum="MAVSH_STATUS">MAVSH status</field>
-      <field type="char[154]" name="payload">Command to execute on remote MAVSH.</field>
+      <field type="char[154]" name="payload">Command to execute</field>
     </message>
     <!--
     MAVSH_RESPONSE
@@ -1840,14 +1853,24 @@
 
     -->    
     
-    <message id="11423" name="MAVSH_RESPONSE">
+    <message id="11424" name="MAVSH_RESPONSE">
       <description>Execute a command on companion computer</description>      
       <field type="uint8_t" name="sys_id">Origin system id</field>
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                  
       <field type="uint8_t" name="cmd_status" enum="MAVSH_CMD_STATUS">Command status</field>
-      <field type="char[154]" name="response">Output of command.</field>
+      <field type="char[154]" name="response">Output of command</field>
     </message>
+    
+    <message id="11425" name="MAVSH_SHUTDOWN">
+      <description>Request MAVSH session shutdown</description>      
+      <field type="uint8_t" name="sys_id">Origin system id</field>
+      <field type="uint8_t" name="comp_id">Origin component id</field>      
+      <field type="uint8_t" name="target_system">Target system id</field>
+      <field type="uint8_t" name="target_component">Target component id</field>                  
+      <field type="uint8_t" name="shutdown_flag" enum="MAVSH_STATUS">Teardown flags</field>
+    </message>
+
   </messages>
 </mavlink>
