@@ -1115,40 +1115,40 @@
       <entry value="1" name="OSD_PARAM_INVALID_SCREEN"/>
       <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
-    </enum>
+    </enum>    
     <enum name="MAVSH_STATUS">
-      <description>MAVSH session status flags</description>
+      <description>MAVSH session flags</description>
       <entry value="0" name="MAVSH_INACTIVE">
-        <description>No active MAVSH session exists</description>
-      </entry>              
-      <entry value="1" name="MAVSH_ACTIVE">
-        <description>An active MAVSH session exists</description>
+        <description>MAVSH session currently inactive</description>
       </entry>
-      <entry value="3" name="MAVSH_EXIT">
-        <description>Attempting to teardown MAVSH session</description>
-      </entry>
-      <entry value="4" name="MAVSH_EXITING">
-        <description>MAVSH session teardown accepted</description>
-      </entry>
-    </enum>
-    <enum name="MAVSH_SETUP">
-      <description>Flags defining whether the MAVSH session was setup or not</description>
-      <entry value="0" name="MAVSH_SESSION_INIT">
+      <entry value="1" name="MAVSH_INIT">
         <description>Attempting to init MAVSH</description>
       </entry>
-      <entry value="1" name="MAVSH_SESSION_ACCEPTED">
+      <entry value="2" name="MAVSH_ACCEPTED">
         <description>MAVSH session accepted</description>
       </entry>
-      <entry value="2" name="MAVSH_SESSION_REJECTED">
-        <description>MAVSH session rejected</description>
+      <entry value="3" name="MAVSH_ACTIVE">
+        <description>MAVSH session currently active</description>
+      </entry>  
+      <entry value="4" name="MAVSH_REJECTED">
+        <description>MGeneric MAVSH setup request rejected</description>
       </entry>      
-       <entry value="3" name="MAVSH_SESSION_EXISTS">
+       <entry value="5" name="MAVSH_SESSION_EXISTS">
         <description>MAVSH session rejected because session already exists</description>
-      </entry>
-      <entry value="4" name="MAVSH_SESSION_EXIT">
-        <description>Attempting to exit MAVSH session</description>
-      </entry>
+      </entry>      
     </enum>
+    <enum name="MAVSH_SHUTDOWN_STATUS">
+      <description>MAVSH shutdown flags</description>
+      <entry value="0" name="MAVSH_SHUTDOWN">
+        <description>Attempting to shutdown MAVSH session</description>
+      </entry>
+      <entry value="1" name="MAVSH_EXITING">
+        <description>MAVSH session shutdown accepted</description>
+      </entry>
+      <entry value="2" name="MAVSH_SHUTDOWN_NOT_ALLOWED">
+        <description>Shutdown not allowed - invalid sysid/compid value</description>
+      </entry>
+    </enum>     
     <enum name="MAVSH_COMMAND_STATUS">
       <description>MAVSH command status flages</description>
       <entry value="0" name="MAVSH_IDLE">
@@ -1158,7 +1158,6 @@
         <description>Command currently executing</description>
       </entry>
     </enum>
-
   </enums>
   <messages>
     <message id="150" name="SENSOR_OFFSETS">
@@ -1802,7 +1801,7 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP>"></field>      
+      <field type="uint8_t" name="status_flag" enum="MAVSH_STATUS>"></field>      
     </message>
 
 
@@ -1817,7 +1816,7 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>            
-      <field type="uint8_t" name="setup_flag" enum="MAVSH_SETUP"></field>      
+      <field type="uint8_t" name="status_flag" enum="MAVSH_STATUS"></field>      
     </message>
 
     <message id="11422" name="MAVSH_SYNACK">
@@ -1838,7 +1837,7 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                        
-      <field type="uint8_t" name="status" enum="MAVSH_STATUS">MAVSH status</field>
+      <field type="uint8_t" name="status_flag" enum="MAVSH_STATUS">MAVSH status</field>
       <field type="char[154]" name="payload">Command to execute</field>
     </message>
     <!--
@@ -1869,7 +1868,7 @@
       <field type="uint8_t" name="comp_id">Origin component id</field>      
       <field type="uint8_t" name="target_system">Target system id</field>
       <field type="uint8_t" name="target_component">Target component id</field>                  
-      <field type="uint8_t" name="shutdown_flag" enum="MAVSH_STATUS">Teardown flags</field>
+      <field type="uint8_t" name="shutdown_flag" enum="MAVSH_SHUTDOWN_STATUS">Shutdown flags</field>
     </message>
 
   </messages>
